@@ -22,6 +22,13 @@ export const getOrders = createAsyncThunk(
 		}
 	}
 );
+export const addProduct = createAsyncThunk(
+	'product/add',
+	async (params) => {
+		const response = await fetch(' http://localhost:8080/product', {method: 'POST', body: params})
+		return response.json();
+	}
+);
 export const addOrder = createAsyncThunk(
 	'order/add',
 	async (params) => {

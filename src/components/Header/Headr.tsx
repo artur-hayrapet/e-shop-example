@@ -1,4 +1,4 @@
-import React, {FC, useEffect} from 'react';
+import React, {FC, useCallback, useEffect} from 'react';
 import s from './styles';
 import {NavLink, useNavigate} from 'react-router-dom';
 import CartIcon from '../CartIcon';
@@ -16,6 +16,11 @@ const Header: FC<SideBarNavigationProps> = () => {
 	const dispatch = useAppDispatch();
 	const {cartItemsCount}: { cartItemsCount: number } = useSelector(getProductsData);
 	const {me} = useSelector(getUserData);
+
+	const logout = useCallback(() => {
+		localStorage.removeItem('me');
+		navigate('/login');
+	}, []);
 
 	useEffect(() => {
 		const LSUser = JSON.parse(localStorage.getItem('me'));
@@ -42,7 +47,13 @@ const Header: FC<SideBarNavigationProps> = () => {
 									<NavLink to="/product">All Products</NavLink>
 								</s.NavItem>
 								<s.NavItem>
-									<NavLink to="/orders">Orders history</NavLink>
+									<NavLink to="/product">All Products</NavLink>
+								</s.NavItem>
+								<s.NavItem>
+									<NavLink to="/add-product">Add new Product</NavLink>
+								</s.NavItem>
+								<s.NavItem>
+									<NavLink onClick={logout}>logout</NavLink>
 								</s.NavItem>
 							</s.NavItems>
 							<NavLink to="/cart">
